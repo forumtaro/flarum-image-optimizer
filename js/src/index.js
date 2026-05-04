@@ -24,7 +24,6 @@ export default class ImageOptimizer {
     }
     
     init() {
-        // Запускаємо після повного завантаження Flarum
         document.addEventListener('DOMContentLoaded', () => {
             this.startObserving();
         });
@@ -111,7 +110,6 @@ export default class ImageOptimizer {
     }
     
     startObserving() {
-        // Створюємо IntersectionObserver
         if ('IntersectionObserver' in window) {
             this.observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
@@ -122,17 +120,14 @@ export default class ImageOptimizer {
                 });
             }, { rootMargin: '200px' });
         } else {
-            // Fallback для браузерів без IntersectionObserver
             this.observer = {
                 observe: (img) => this.processImage(img),
                 unobserve: () => {}
             };
         }
         
-        // Обробляємо існуючі зображення
         this.observeImages();
         
-        // Відстежуємо нові зображення
         let timeout;
         this.mutationObserver = new MutationObserver(() => {
             clearTimeout(timeout);
@@ -146,9 +141,9 @@ export default class ImageOptimizer {
     }
 }
 
-// Запускаємо оптимізатор при завантаженні Flarum
+// Запускаємо при ініціалізації Flarum
 if (typeof flarum !== 'undefined') {
-    flarum.initializers.add('custom-image-optimizer', () => {
+    flarum.initializers.add('foumtaro-image-optimizer', () => {
         new ImageOptimizer();
     });
 }
