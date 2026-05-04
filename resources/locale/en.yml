@@ -1,0 +1,6 @@
+foumtaro-image-optimizer:
+  admin:
+    settings:
+      title: Image Optimizer Settings
+  forum:
+    optimized: Image optimized via weserv.nl
